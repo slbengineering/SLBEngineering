@@ -115,7 +115,7 @@ background: #f4b905;
 #head {
 	background: #181015 url( ../Images/Background.jpg) no-repeat;
 	background-size: cover;
-	min-height: 520px;
+	min-height: 320px;
 	text-align: center;
 	padding-top: 240px;
 	color: white;
