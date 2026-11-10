@@ -98,15 +98,18 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 
 .btn, .follow-me-icons a, .footer2 a, .footer1 a { transition: background-color .25s ease, color .25s ease, transform .25s ease; }
 .btn:hover { transform: translateY(-2px); }
-.follow-me-icons a:hover { transform: translateY(-3px); display: inline-block; }
+/* Fixed box per icon so hovering only moves it visually (transform), never reflows its neighbours */
+.follow-me-icons a { display: block; float: left; }
+.follow-me-icons a i { float: none; display: block; }
+.follow-me-icons a:hover { transform: translateY(-3px); }
 
 .img-rounded { transition: transform .4s ease, box-shadow .4s ease; }
 .img-rounded:hover { transform: scale(1.02); box-shadow: 0 10px 24px rgba(0, 0, 0, .2); }
 
 /* X (formerly Twitter) icon - Font Awesome 4 has no X glyph, so draw it as a mask in the current text colour */
 .follow-me-icons i.icon-x {
-	display: inline-block;
-	float: left;
+	display: block;
+	float: none;
 	width: 25px;
 	height: 25px;
 	margin: 0 10px 0 0;
