@@ -259,6 +259,13 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 	.vid-loop { float: none !important; width: 100%; max-width: none; margin: 0 0 15px; }
 }
 
+/* "What is a Controls Integrator?" block (Services): centered text with the diagram centered below it */
+.ci-center { text-align: center; }
+.ci-center .ci-img img {
+	display: block; width: 100%; max-width: 780px; height: auto;
+	margin: 20px auto 0;
+}
+
 /* ---------- Respect "reduce motion" ---------- */
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }
