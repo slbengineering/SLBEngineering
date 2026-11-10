@@ -134,10 +134,15 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 .herotxt p { font-size: 18px; }
 
 /* ---------- Data collection / operator display section (services page) ---------- */
-.datasw .lead { color: #555; margin-bottom: 25px; }
-.datasw-features li { display: flex; align-items: flex-start; margin-bottom: 18px; }
+.datasw { text-align: center; }
+.datasw .lead { color: #555; margin-bottom: 30px; }
+.datasw-features {
+	display: flex; flex-wrap: wrap; justify-content: center;
+	gap: 24px 40px; margin: 0 0 35px; padding: 0;
+}
+.datasw-features li { flex: 1 1 260px; max-width: 340px; display: flex; flex-direction: column; align-items: center; }
 .datasw-features i {
-	flex: 0 0 44px; width: 44px; height: 44px; margin-right: 15px;
+	flex: 0 0 44px; width: 44px; height: 44px; margin: 0 0 12px;
 	border-radius: 50%; background: #f4b905; color: #222;
 	font-size: 20px; line-height: 44px; text-align: center;
 }
