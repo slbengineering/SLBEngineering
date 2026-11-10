@@ -1,0 +1,114 @@
+/* SLB Engineering - motion + polish layer.
+   Loaded after style.css. Everything here is transform/opacity only (GPU friendly)
+   and is switched off for visitors who ask for reduced motion. */
+
+html { scroll-behavior: smooth; }
+img[height] { height: auto; } /* width/height attrs reserve space but never distort on mobile */
+
+/* ---------- Hero: slow "Ken Burns" drift + light sweep ---------- */
+#head {
+	background: #181015;
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
+}
+#head::before {
+	content: "";
+	position: absolute;
+	inset: -4%;
+	z-index: -2;
+	background: url(../Images/Background.webp) center / cover no-repeat;
+	animation: heroDrift 28s ease-in-out infinite alternate;
+	will-change: transform;
+}
+#head::after { /* soft diagonal glint that crosses the board every few seconds */
+	content: "";
+	position: absolute;
+	top: 0; bottom: 0; left: 0;
+	width: 40%;
+	z-index: -1;
+	background: linear-gradient(105deg, transparent 0%, rgba(244, 185, 5, .16) 50%, transparent 100%);
+	transform: translateX(-120%) skewX(-18deg);
+	animation: heroSweep 9s ease-in-out 2s infinite;
+	pointer-events: none;
+}
+@keyframes heroDrift {
+	from { transform: scale(1)    translate3d(0, 0, 0); }
+	to   { transform: scale(1.12) translate3d(-1.5%, -1%, 0); }
+}
+@keyframes heroSweep {
+	0%   { transform: translateX(-120%) skewX(-18deg); }
+	35%, 100% { transform: translateX(380%) skewX(-18deg); }
+}
+
+/* ---------- Page load ---------- */
+.navbar-brand img { animation: dropIn .8s cubic-bezier(.2, .7, .2, 1) both; }
+.navbar-nav > li { animation: dropIn .7s cubic-bezier(.2, .7, .2, 1) both; }
+.navbar-nav > li:nth-child(1) { animation-delay: .10s; }
+.navbar-nav > li:nth-child(2) { animation-delay: .18s; }
+.navbar-nav > li:nth-child(3) { animation-delay: .26s; }
+.navbar-nav > li:nth-child(4) { animation-delay: .34s; }
+@keyframes dropIn {
+	from { opacity: 0; transform: translate3d(0, -14px, 0); }
+	to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (class added by animations.js) ---------- */
+.js .reveal {
+	opacity: 0;
+	transform: translate3d(0, 28px, 0);
+	transition: opacity .7s cubic-bezier(.2, .7, .2, 1) var(--d, 0s),
+	            transform .7s cubic-bezier(.2, .7, .2, 1) var(--d, 0s);
+	will-change: opacity, transform;
+}
+.js .reveal.in {
+	opacity: 1;
+	transform: none;
+	will-change: auto;
+}
+
+/* ---------- Hover / interaction ---------- */
+.navbar-nav > li > a,
+.navbar-nav > li { transition: background-color .25s ease, color .25s ease; }
+
+.h-caption i { transition: transform .35s cubic-bezier(.3, 1.6, .5, 1), color .25s ease; }
+.highlight:hover .h-caption i { transform: scale(1.18) rotate(-8deg); color: #f4b905; }
+.highlight .h-caption h4 { transition: color .25s ease; }
+.highlight:hover .h-caption h4 { color: #ddd; }
+
+.blockquote-box .square { transition: transform .3s ease, box-shadow .3s ease; }
+.blockquote-box:hover .square { transform: translateY(-4px); box-shadow: 0 8px 18px rgba(0, 0, 0, .25); }
+
+.serviceslist .thumbnail {
+	overflow: hidden;
+	transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.serviceslist .thumbnail:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 12px 24px rgba(0, 0, 0, .18);
+	border-color: #f4b905;
+}
+.serviceslist .thumbnail img {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover; /* the four service photos have different shapes - make them match */
+	transition: transform .5s ease;
+}
+.serviceslist .thumbnail:hover img { transform: scale(1.06); }
+
+.btn, .follow-me-icons a, .footer2 a, .footer1 a { transition: background-color .25s ease, color .25s ease, transform .25s ease; }
+.btn:hover { transform: translateY(-2px); }
+.follow-me-icons a:hover { transform: translateY(-3px); display: inline-block; }
+
+.img-rounded { transition: transform .4s ease, box-shadow .4s ease; }
+.img-rounded:hover { transform: scale(1.02); box-shadow: 0 10px 24px rgba(0, 0, 0, .2); }
+
+/* ---------- Respect "reduce motion" ---------- */
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+	#head::before, #head::after,
+	.navbar-brand img, .navbar-nav > li { animation: none !important; }
+	#head::after { display: none; }
+	.js .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+	*, *::before, *::after { transition-duration: .01ms !important; }
+}
