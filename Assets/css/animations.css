@@ -122,11 +122,9 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E") center / 80% no-repeat;
 }
 
-/* Phones: About / Services / Contact use a plain black header bar behind the logo and menu button */
-@media (max-width: 767px) {
-	#head.secondary { background: #000; }
-	#head.secondary::before, #head.secondary::after { display: none; }
-}
+/* About / Services / Contact (all screen sizes): plain black header bar behind the logo and menu */
+#head.secondary { background: #000; }
+#head.secondary::before, #head.secondary::after { display: none; }
 
 /* Home page yellow intro bar: ~20% shorter (tighter padding, slightly smaller type) */
 .herotxt .sectionBox { padding-top: 24px; padding-bottom: 26px; }
