@@ -101,7 +101,10 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 /* Fixed box per icon so hovering only moves it visually (transform), never reflows its neighbours */
 .follow-me-icons a { display: block; float: left; }
 .follow-me-icons a i { float: none; display: block; }
-.follow-me-icons a:hover { transform: translateY(-3px); }
+/* Lift the glyph, not the link: the link (hover target) never moves, so the pointer can't slip off its edge and re-trigger */
+.follow-me-icons a i { transition: transform .25s ease; }
+.follow-me-icons a:hover i { transform: translateY(-3px); }
+.follow-me-icons a:hover { transform: none; }
 
 .img-rounded { transition: transform .4s ease, box-shadow .4s ease; }
 .img-rounded:hover { transform: scale(1.02); box-shadow: 0 10px 24px rgba(0, 0, 0, .2); }
