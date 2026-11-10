@@ -127,6 +127,11 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 	#head.secondary::before, #head.secondary::after { display: none; }
 }
 
+/* Home page yellow intro bar: ~20% shorter (tighter padding, slightly smaller type) */
+.herotxt .sectionBox { padding-top: 24px; padding-bottom: 26px; }
+.herotxt span { font-size: 30px; line-height: 38px; margin-bottom: 8px; }
+.herotxt p { font-size: 18px; }
+
 /* ---------- Respect "reduce motion" ---------- */
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }
