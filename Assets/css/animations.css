@@ -133,6 +133,70 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 .herotxt span { font-size: 30px; line-height: 38px; margin-bottom: 8px; }
 .herotxt p { font-size: 18px; }
 
+/* ---------- Data collection / operator display section (services page) ---------- */
+.datasw .lead { color: #555; margin-bottom: 25px; }
+.datasw-features li { display: flex; align-items: flex-start; margin-bottom: 18px; }
+.datasw-features i {
+	flex: 0 0 44px; width: 44px; height: 44px; margin-right: 15px;
+	border-radius: 50%; background: #f4b905; color: #222;
+	font-size: 20px; line-height: 44px; text-align: center;
+}
+.datasw-features strong { display: block; font-size: 17px; color: #222; }
+.datasw-features span { display: block; color: #666; font-size: 15px; }
+.datasw-shots { margin-top: 10px; }
+.datasw-shots a.lightbox {
+	position: relative; display: block; overflow: hidden;
+	border: 1px solid #ddd; border-radius: 4px; background: #0e1117;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
+	transition: transform .3s ease, box-shadow .3s ease;
+	cursor: zoom-in;
+}
+.datasw-shots a.lightbox:hover, .datasw-shots a.lightbox:focus {
+	transform: translateY(-4px); box-shadow: 0 12px 26px rgba(0, 0, 0, .28); outline: none;
+}
+.datasw-shots a.lightbox img { display: block; width: 100%; transition: transform .5s ease; }
+.datasw-shots a.lightbox:hover img { transform: scale(1.03); }
+.lb-hint {
+	position: absolute; right: 10px; bottom: 10px; padding: 4px 10px;
+	background: rgba(0, 0, 0, .72); color: #fff; font-size: 13px; border-radius: 3px;
+}
+.datasw-cap { margin: 10px 0 25px; color: #666; font-size: 14px; }
+
+/* Lightbox */
+.lb-open { overflow: hidden; }
+.lb-overlay {
+	position: fixed; inset: 0; z-index: 10000;
+	display: flex; align-items: center; justify-content: center;
+	background: rgba(0, 0, 0, .9);
+	animation: lbFade .25s ease both;
+}
+.lb-overlay[hidden] { display: none; }
+@keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+.lb-fig { margin: 0; max-width: 96vw; max-height: 96vh; text-align: center; }
+.lb-img {
+	display: block; margin: 0 auto;
+	max-width: 96vw; max-height: calc(96vh - 48px);
+	object-fit: contain; cursor: zoom-in;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, .6);
+}
+.lb-cap { padding-top: 10px; color: #ddd; font-size: 14px; }
+.lb-overlay.zoomed { align-items: flex-start; justify-content: flex-start; overflow: auto; }
+.lb-overlay.zoomed .lb-fig { max-width: none; max-height: none; }
+.lb-overlay.zoomed .lb-img { max-width: none; max-height: none; width: auto; cursor: zoom-out; }
+.lb-btn {
+	position: fixed; z-index: 2; width: 44px; height: 44px; padding: 0;
+	border: 0; border-radius: 50%; background: rgba(255, 255, 255, .16); color: #fff;
+	font-size: 30px; line-height: 44px; cursor: pointer;
+	transition: background-color .2s ease;
+}
+.lb-btn:hover, .lb-btn:focus { background: #f4b905; color: #222; outline: none; }
+.lb-close { top: 14px; right: 14px; }
+.lb-prev { left: 14px; top: 50%; margin-top: -22px; }
+.lb-next { right: 14px; top: 50%; margin-top: -22px; }
+@media (max-width: 767px) {
+	.lb-prev, .lb-next { top: auto; bottom: 14px; margin-top: 0; }
+}
+
 /* ---------- Respect "reduce motion" ---------- */
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }

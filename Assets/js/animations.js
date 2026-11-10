@@ -13,6 +13,7 @@
 		'.maincontent > h3, .maincontent > p',
 		'.sidebar .panel, .contact-details',
 		'.serviceslist .row > [class*="col-"]',
+		'.datasw .lead, .datasw-features li, .datasw-shots > [class*="col-"]',
 		'.footer1 .panel'
 	].join(',');
 
@@ -43,4 +44,77 @@
 	}, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
 
 	els.forEach(function (el) { io.observe(el); });
+})();
+
+/* Click-to-enlarge image viewer for <a class="lightbox" href="big-image">. Works without JS too (link opens the image). */
+(function () {
+	'use strict';
+	var links = Array.prototype.slice.call(document.querySelectorAll('a.lightbox'));
+	if (!links.length) return;
+
+	var ov, img, cap, idx = 0, opener = null;
+
+	function build() {
+		ov = document.createElement('div');
+		ov.className = 'lb-overlay';
+		ov.setAttribute('role', 'dialog');
+		ov.setAttribute('aria-modal', 'true');
+		ov.setAttribute('aria-label', 'Image viewer');
+		ov.hidden = true;
+		ov.innerHTML =
+			'<button type="button" class="lb-btn lb-close" aria-label="Close">&times;</button>' +
+			(links.length > 1 ? '<button type="button" class="lb-btn lb-prev" aria-label="Previous image">&#8249;</button>' +
+			                    '<button type="button" class="lb-btn lb-next" aria-label="Next image">&#8250;</button>' : '') +
+			'<figure class="lb-fig"><img class="lb-img" alt=""><figcaption class="lb-cap"></figcaption></figure>';
+		document.body.appendChild(ov);
+		img = ov.querySelector('.lb-img');
+		cap = ov.querySelector('.lb-cap');
+
+		ov.addEventListener('click', function (e) {
+			if (e.target === img) { ov.classList.toggle('zoomed'); return; } // tap image: fit <-> full size
+			if (e.target.classList.contains('lb-prev')) { show(idx - 1); return; }
+			if (e.target.classList.contains('lb-next')) { show(idx + 1); return; }
+			close(); // backdrop or X
+		});
+		document.addEventListener('keydown', function (e) {
+			if (ov.hidden) return;
+			if (e.key === 'Escape') close();
+			else if (e.key === 'ArrowLeft') show(idx - 1);
+			else if (e.key === 'ArrowRight') show(idx + 1);
+			else if (e.key === 'Tab') { e.preventDefault(); ov.querySelector('.lb-close').focus(); } // keep focus inside
+		});
+	}
+
+	function show(i) {
+		idx = (i + links.length) % links.length;
+		var a = links[idx], thumb = a.querySelector('img');
+		ov.classList.remove('zoomed');
+		img.src = a.getAttribute('href');
+		img.alt = thumb ? thumb.alt : '';
+		cap.textContent = a.getAttribute('data-caption') || '';
+	}
+
+	function open(i, from) {
+		if (!ov) build();
+		opener = from;
+		show(i);
+		ov.hidden = false;
+		document.documentElement.classList.add('lb-open');
+		ov.querySelector('.lb-close').focus();
+	}
+
+	function close() {
+		ov.hidden = true;
+		img.removeAttribute('src');
+		document.documentElement.classList.remove('lb-open');
+		if (opener) opener.focus();
+	}
+
+	links.forEach(function (a, i) {
+		a.addEventListener('click', function (e) {
+			if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return; // let "open in new tab" work
+			e.preventDefault();
+			open(i, a);
+		});
+	});
 })();
