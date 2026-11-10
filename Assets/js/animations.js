@@ -140,3 +140,41 @@
 		});
 	});
 })();
+
+/* Muted looping YouTube clip used like an animated picture. Starts when scrolled into view;
+   skipped for visitors who prefer reduced motion or have data saver on (they just see the still frame). */
+(function () {
+	'use strict';
+	var boxes = Array.prototype.slice.call(document.querySelectorAll('.vid-loop[data-yt]'));
+	if (!boxes.length) return;
+	var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	var saver = navigator.connection && navigator.connection.saveData;
+	if (calm || saver || !('IntersectionObserver' in window)) return;
+
+	function start(box) {
+		var host = box.querySelector('.vid-poster');
+		if (!host || host.querySelector('iframe')) return;
+		var id = box.getAttribute('data-yt');
+		var f = document.createElement('iframe');
+		f.src = 'https://www.youtube-nocookie.com/embed/' + id +
+			'?autoplay=1&mute=1&loop=1&playlist=' + id +
+			'&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&disablekb=1&fs=0';
+		f.title = 'Yaskawa robots on a production line (looping video)';
+		f.allow = 'autoplay; encrypted-media; picture-in-picture';
+		f.tabIndex = -1;
+		f.setAttribute('aria-hidden', 'true');
+		f.addEventListener('load', function () {
+			setTimeout(function () { box.classList.add('playing'); }, 1200); // let the first frame appear, no black flash
+		});
+		host.appendChild(f);
+	}
+
+	var io = new IntersectionObserver(function (entries) {
+		entries.forEach(function (e) {
+			if (!e.isIntersecting) return;
+			start(e.target);
+			io.unobserve(e.target);
+		});
+	}, { threshold: 0.25 });
+	boxes.forEach(function (b) { io.observe(b); });
+})();
