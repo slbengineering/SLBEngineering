@@ -91,7 +91,8 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 .serviceslist .thumbnail img {
 	width: 100%;
 	aspect-ratio: 16 / 9;
-	object-fit: cover; /* the four service photos have different shapes - make them match */
+	object-fit: contain; /* the four service photos have different shapes: give them equal-height frames but never crop the picture */
+	background: #fff;
 	transition: transform .5s ease;
 }
 .serviceslist .thumbnail:hover img { transform: scale(1.06); }
