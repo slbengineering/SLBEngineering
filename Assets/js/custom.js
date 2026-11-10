@@ -7,17 +7,23 @@ Licence: Creative Commons Attribution 3.0** - http://creativecommons.org/license
 */
 jQuery(document).ready(function ($) {
 //da slider
-	$('#da-slider').cslider({
-		autoplay: true,
-		bgincrement: 0
-	});
+	if ($.fn.cslider && $('#da-slider').length) {
+		$('#da-slider').cslider({
+			autoplay: true,
+			bgincrement: 0
+		});
+	}
 //Set the carousel options
-	$('#quote-carousel').carousel({
-		pause: true,
-		interval: 4000,
-	});
+	if ($.fn.carousel && $('#quote-carousel').length) {
+		$('#quote-carousel').carousel({
+			pause: true,
+			interval: 4000
+		});
+	}
 // fancybox
-    $(".fancybox").fancybox();
+	if ($.fn.fancybox && $('.fancybox').length) {
+		$(".fancybox").fancybox();
+	}
 //isotope
     if ($('.isotopeWrapper').length) {
         var $container = $('.isotopeWrapper');
@@ -53,7 +59,7 @@ jQuery(document).ready(function ($) {
             });
             return false;
         });
-		$(window).load(function() { 
+		$(window).on('load', function() {
 			  $('#filter .current').trigger('click');
 		});
         $(window).smartresize(function () {
