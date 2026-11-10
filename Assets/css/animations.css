@@ -132,6 +132,9 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 .herotxt .sectionBox { padding-top: 24px; padding-bottom: 26px; }
 .herotxt span { font-size: 30px; line-height: 38px; margin-bottom: 8px; }
 .herotxt p { font-size: 18px; }
+.herotxt .container { text-align: center; }
+.herotxt p a { color: #222; font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color .2s ease; }
+.herotxt p a:hover { color: #fff; }
 
 /* ---------- Data collection / operator display section (services page) ---------- */
 .datasw { text-align: center; }

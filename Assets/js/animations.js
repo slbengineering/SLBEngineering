@@ -3,7 +3,7 @@
 	'use strict';
 
 	var SELECTOR = [
-		'.herotxt .col-md-9',
+		'.herotxt .row > [class*="col-"]',
 		'.amr-video .container',
 		'.highlight',
 		'.sectionBox .col-md-6 > .heading',
