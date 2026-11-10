@@ -4,6 +4,7 @@
 
 	var SELECTOR = [
 		'.herotxt .col-md-9',
+		'.amr-video .container',
 		'.highlight',
 		'.sectionBox .col-md-6 > .heading',
 		'.sectionBox .col-md-6 > p',
@@ -115,6 +116,27 @@
 			if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return; // let "open in new tab" work
 			e.preventDefault();
 			open(i, a);
+		});
+	});
+})();
+
+/* YouTube "facade": show a thumbnail and only load the (heavy) player when the visitor clicks play. */
+(function () {
+	'use strict';
+	Array.prototype.forEach.call(document.querySelectorAll('.yt-facade[data-yt]'), function (box) {
+		var link = box.querySelector('.yt-link');
+		if (!link) return;
+		link.addEventListener('click', function (e) {
+			if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return; // allow open-in-new-tab
+			e.preventDefault();
+			var f = document.createElement('iframe');
+			f.src = 'https://www.youtube-nocookie.com/embed/' + box.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1';
+			f.title = box.getAttribute('data-title') || 'Video';
+			f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+			f.allowFullscreen = true;
+			f.referrerPolicy = 'strict-origin-when-cross-origin';
+			box.replaceChild(f, link);
+			f.focus();
 		});
 	});
 })();
