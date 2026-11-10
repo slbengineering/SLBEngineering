@@ -103,6 +103,18 @@ img[height] { height: auto; } /* width/height attrs reserve space but never dist
 .img-rounded { transition: transform .4s ease, box-shadow .4s ease; }
 .img-rounded:hover { transform: scale(1.02); box-shadow: 0 10px 24px rgba(0, 0, 0, .2); }
 
+/* X (formerly Twitter) icon - Font Awesome 4 has no X glyph, so draw it as a mask in the current text colour */
+.follow-me-icons i.icon-x {
+	display: inline-block;
+	float: left;
+	width: 25px;
+	height: 25px;
+	margin: 0 10px 0 0;
+	background-color: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E") center / 80% no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E") center / 80% no-repeat;
+}
+
 /* ---------- Respect "reduce motion" ---------- */
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }
